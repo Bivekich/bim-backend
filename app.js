@@ -5,6 +5,7 @@ const { WebSocket, Server } = require('ws');
 const authRoutes = require('./routes/auth');
 const eventsRoutes = require('./routes/events');
 const coworkingRoutes = require('./routes/coworking');
+const newsRoutes = require('./routes/news');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors())
 app.use('/auth', authRoutes);
 app.use('/events', eventsRoutes);
 app.use('/coworking', coworkingRoutes);
+app.use('/news',  newsRoutes);
 
 wss.on('connection', (ws) => {
     const clientId = Math.random().toString(36).substring(2);
