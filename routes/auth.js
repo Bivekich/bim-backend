@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             return res.status(401).send('Неверный пароль');
         }
-        res.send('Успешный вход в систему');
+        res.json({ userId: user.id });
     } catch (error) {
         console.error(error)
         res.status(500).send('Ошибка при входе в систему');

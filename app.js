@@ -1,6 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const http = require('http')
-const WebSocket = require('ws');
+const { WebSocket, Server } = require('ws');
 const authRoutes = require('./routes/auth');
 const eventsRoutes = require('./routes/events');
 const coworkingRoutes = require('./routes/coworking');
@@ -8,11 +9,12 @@ const coworkingRoutes = require('./routes/coworking');
 const app = express();
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new Server({ server });
 
 const clients = new Map()
 
 app.use(express.json());
+app.use(cors())
 app.use('/auth', authRoutes);
 app.use('/events', eventsRoutes);
 app.use('/coworking', coworkingRoutes);
