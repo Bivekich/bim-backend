@@ -42,4 +42,16 @@ router.delete('/cancel/:bookingId', async (req, res) => {
     }
 });
 
+// Все брони пользователя
+router.get('/user/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const userBookings = await pool.query('SELECT * FROM coworking_bookings WHERE user_id = $1', [userId]);
+        res.json(userBookings.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+    }
+});
+
 module.exports = router
